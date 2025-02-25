@@ -280,7 +280,7 @@ def create_replication_instance(
     return dms.CfnReplicationInstance(
         stack,
         "replication-instance",
-        replication_instance_class="dms.t3.micro",
+        replication_instance_class="dms.t2.micro",
         allocated_storage=5,
         replication_subnet_group_identifier=replication_subnet_group.ref,
         allow_major_version_upgrade=False,
