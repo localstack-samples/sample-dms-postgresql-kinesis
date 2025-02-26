@@ -240,7 +240,7 @@ def create_kinesis_target_endpoint(stack: Stack, target_stream: kinesis.Stream, 
             include_null_and_empty=True,
             include_partition_value=True,
             include_table_alter_operations=True,
-            include_transaction_details=True,
+            include_transaction_details=False,
             partition_include_schema_table=True,
         ),
     )
