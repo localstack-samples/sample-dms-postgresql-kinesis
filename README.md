@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This scenario demonstrates how to use Database Migration Service (DMS) to create change data capture (CDC) tasks using the Cloud Development Kit in Python. It is a self-contained setup that will create a VPC to host the DMS replication instance, a database, a Kinesis stream with non-default settings, and a replication task.
+This scenario demonstrates how to use Database Migration Service (DMS) to create change data capture (CDC) tasks using the Cloud Development Kit in Python. It is a self-contained setup that will create a VPC to host the DMS replication instance, a database, a Kinesis stream, and a replication task.
 
 ![dms-postgres-to-kinesis](./dms-postgres-to-kinesis.jpg)
 
@@ -40,6 +40,9 @@ To deploy the infrastructure, you can run the following command:
 ```bash
 make deploy
 ```
+
+> NOTE: By default we create kinesis target endpoint with default settings.
+> In order to create the target with non-default values set the environment to `KINESIS_TARGET=non-default`. 
 
 After successful deployment, you will see the following output:
 

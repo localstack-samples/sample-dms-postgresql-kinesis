@@ -15,6 +15,7 @@ from constructs import Construct
 USERNAME = os.getenv("USERNAME", "")
 USER_PWD = os.getenv("USERPWD", "")
 DB_NAME = os.getenv("DB_NAME", "")
+KINESIS_TARGET = os.getenv("KINESIS_TARGET", "default")
 SCHEMA_NAME = "public"
 
 
@@ -227,23 +228,36 @@ def create_postgres_access_role(stack: Stack, postgres_secret: secretsmanager.Cf
 
 
 def create_kinesis_target_endpoint(stack: Stack, target_stream: kinesis.Stream, dms_assume_role: iam.Role) -> dms.CfnEndpoint:
+    if str.lower(KINESIS_TARGET) == "non-default":
+        return dms.CfnEndpoint(
+            stack,
+            "target",
+            endpoint_type="target",
+            engine_name="kinesis",
+            kinesis_settings=dms.CfnEndpoint.KinesisSettingsProperty(
+                stream_arn=target_stream.stream_arn,
+                message_format="json",
+                service_access_role_arn=dms_assume_role.role_arn,
+                include_control_details=True,
+                include_null_and_empty=True,
+                include_partition_value=True,
+                include_table_alter_operations=True,
+                include_transaction_details=False,
+                partition_include_schema_table=True,
+            ),
+        )
+
     return dms.CfnEndpoint(
-        stack,
-        "target",
-        endpoint_type="target",
-        engine_name="kinesis",
-        kinesis_settings=dms.CfnEndpoint.KinesisSettingsProperty(
-            stream_arn=target_stream.stream_arn,
-            message_format="json",
-            service_access_role_arn=dms_assume_role.role_arn,
-            include_control_details=True,
-            include_null_and_empty=True,
-            include_partition_value=True,
-            include_table_alter_operations=True,
-            include_transaction_details=False,
-            partition_include_schema_table=True,
-        ),
-    )
+            stack,
+            "target",
+            endpoint_type="target",
+            engine_name="kinesis",
+            kinesis_settings=dms.CfnEndpoint.KinesisSettingsProperty(
+                stream_arn=target_stream.stream_arn,
+                message_format="json",
+                service_access_role_arn=dms_assume_role.role_arn,
+            ),
+        )       
 
 
 def create_replication_instance(

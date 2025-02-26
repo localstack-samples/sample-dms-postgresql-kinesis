@@ -14,6 +14,7 @@ from lib import query as q
 STACK_NAME = os.getenv("STACK_NAME", "DMSPostgresKinesis")
 
 ENDPOINT_URL = os.getenv("ENDPOINT_URL")
+KINESIS_TARGET = os.getenv("KINESIS_TARGET", "default")
 
 cfn = client("cloudformation", endpoint_url=ENDPOINT_URL)
 dms = client("dms", endpoint_url=ENDPOINT_URL)
@@ -240,7 +241,10 @@ def execute_cdc(cfn_output: CfnOutput):
     threshold_timestamp = int(time.time())
     sleep(1)
     run_queries_on_postgres(credentials, q.ALTER_TABLES)
-    wait_for_kinesis(stream, 3, threshold_timestamp)
+    if str.lower(KINESIS_TARGET) == "non-default":
+        wait_for_kinesis(stream, 3, threshold_timestamp)
+    else:
+        wait_for_kinesis(stream, 0, threshold_timestamp)
     print("\n****End of ALTER tables events****\n")
 
     print("\n****Table Statistics****\n")
