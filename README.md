@@ -70,7 +70,7 @@ A CDC replication task runs against the RDS database:
 
 -   Creates three tables: `authors`, `accounts`, `books`
 -   Starts CDC replication task
--   Captures and logs 3 Kinesis events: 1 for `awsdms_apply_exceptions` table, 3 for our tables
+-   Captures and logs 4 Kinesis events: 1 for `awsdms_apply_exceptions` table, 3 for our tables
 -   Makes 3 inserts
 -   Captures and logs 3 Kinesis events
 -   Makes 3 table alterations, 1 per table
