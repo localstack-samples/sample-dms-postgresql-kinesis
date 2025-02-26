@@ -42,7 +42,10 @@ make deploy
 ```
 
 > NOTE: By default we create the kinesis target endpoint with default settings.
+> For non-default settings we enable capturing events related to DDL operations and 
+> include `NULL` and empty column values from the events.
 > In order to create the target with non-default values set the environment to `KINESIS_TARGET=non-default`. 
+> To know more about these settings, checkout the [official AWS documentation](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#:~:text=Kinesis%20Data%20Streams%20endpoint%20settings).
 
 After successful deployment, you will see the following output:
 
