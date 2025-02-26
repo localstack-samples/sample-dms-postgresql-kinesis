@@ -77,7 +77,7 @@ A CDC replication task runs against the RDS database:
 -   Makes 3 inserts
 -   Captures and logs 3 Kinesis events
 -   Makes 3 table alterations, 1 per table
--   Captures and logs 3 Kinesis events
+-   Captures and logs 3 Kinesis events for non-default settings else 0
 -   Logs `table_statistics` for the task
 
 ## Deploying on AWS
