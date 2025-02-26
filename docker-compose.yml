@@ -22,14 +22,3 @@ services:
             timeout: 2s
             retries: 5
             start_period: 10s
-    postgres_server:
-        container_name: dms-sample-postgres
-        image: postgres
-        ports:
-            - "127.0.0.1:5432:5432"
-        restart: always
-        command: -c 'wal_level=logical' -c 'max_replication_slots=10' -c 'max_wal_senders=10'
-        environment:
-            - POSTGRES_DB=${DB_NAME:-testdb}
-            - POSTGRES_USER=${USERNAME:-admin123}
-            - POSTGRES_PASSWORD=${USERPWD:-mysecretpassword}

@@ -59,8 +59,6 @@ def get_cfn_output():
 def get_credentials(secret_arn: str) -> Credentials:
     secret_value = secretsmanager.get_secret_value(SecretId=secret_arn)
     credentials = Credentials(**json.loads(secret_value["SecretString"]))
-    if credentials["host"] == "postgres_server":
-        credentials["host"] = "localhost"
     return credentials
 
 
