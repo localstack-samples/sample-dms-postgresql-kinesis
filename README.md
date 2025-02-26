@@ -41,7 +41,7 @@ To deploy the infrastructure, you can run the following command:
 make deploy
 ```
 
-> NOTE: By default we create kinesis target endpoint with default settings.
+> NOTE: By default we create the kinesis target endpoint with default settings.
 > In order to create the target with non-default values set the environment to `KINESIS_TARGET=non-default`. 
 
 After successful deployment, you will see the following output:
