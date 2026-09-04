@@ -38,19 +38,15 @@ start:		## Start LocalStack
 stop:		## Stop LocalStack
 	docker compose down
 
-ready:		## Wait until LocalStack is ready
-	@echo Waiting on the LocalStack container...
-	@localstack wait -t 30 && echo LocalStack is ready to use! || (echo Gave up waiting on LocalStack, exiting. && exit 1)
-
 logs:		## Save the logs in a separate file
-	@localstack logs > logs.txt
+	@lstk logs > logs.txt
 
 install: venv
 	$(VENV_RUN); $(PIP_CMD) install -r requirements.txt
 
 deploy:
-	$(VENV_RUN); $(LOCAL_ENV) cdklocal bootstrap --output ./cdk.local.out
-	$(VENV_RUN); $(LOCAL_ENV) cdklocal deploy --require-approval never --output ./cdk.local.out
+	$(VENV_RUN); $(LOCAL_ENV) lstk cdk bootstrap --output ./cdk.local.out
+	$(VENV_RUN); $(LOCAL_ENV) lstk cdk deploy --require-approval never --output ./cdk.local.out
 
 deploy-aws:
 	$(VENV_RUN); $(CLOUD_ENV) cdk bootstrap
@@ -68,4 +64,4 @@ run:
 run-aws:
 	$(VENV_RUN); $(CLOUD_ENV) python run.py
 
-.PHONY: usage venv start stop ready logs install deploy deploy-aws destroy destroy-aws run run-aws
+.PHONY: usage venv start stop logs install deploy deploy-aws destroy destroy-aws run run-aws

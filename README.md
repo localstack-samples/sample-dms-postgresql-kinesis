@@ -8,10 +8,10 @@ This scenario demonstrates how to use Database Migration Service (DMS) to create
 
 ## Pre-requisites
 
--   A valid [LocalStack for AWS license](https://localstack.cloud/pricing). Your license provides a [`LOCALSTACK_AUTH_TOKEN`](https://docs.localstack.cloud/getting-started/auth-token/) to activate LocalStack.
+-   A valid [LocalStack for AWS license](https://localstack.cloud/pricing). Your license provides a [`LOCALSTACK_AUTH_TOKEN`](https://docs.localstack.cloud/aws/getting-started/auth-token/) to activate LocalStack.
 -   [Python 3.10](https://www.python.org/downloads/) & `pip`
 -   [Docker Compose](https://docs.docker.com/compose/install/)
--   [CDK](https://docs.localstack.cloud/user-guide/integrations/aws-cdk/)  with the  [`cdklocal`](https://github.com/localstack/aws-cdk-local) wrapper.
+-   [CDK](https://docs.localstack.cloud/user-guide/integrations/aws-cdk/)  with the  [`lstk`](https://docs.localstack.cloud/aws/developer-tools/running-localstack/lstk/) CLI.
 
 ## Start LocalStack
 
@@ -20,7 +20,6 @@ Start LocalStack with the `LOCALSTACK_AUTH_TOKEN` pre-configured:
 ```bash
 export LOCALSTACK_AUTH_TOKEN=<your-auth-token>
 make start
-make ready
 ```
 
 The Docker Compose file will start LocalStack container and a Postgres container. The Postgres container will be used to showcase how to reach a database external to LocalStack.
